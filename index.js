@@ -4,28 +4,19 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
-    app = express(),
-    usersCtrl = require('./controllers/usersCtrl'),
-    apartmentsCtrl = require('./controllers/apartmentsCrtl'),
-    reservationsCtrl = require('./controllers/reservationsCtrl');
+    app = express();
 
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-var router = express.Router();
+var usersUrl = require('./routes/users');
+var reservationsUrl = require('./routes/reservations');
+var apartmentsUrl = require('./routes/apartments');
 
-router.route('/users')
-    .get(usersCtrl.hola);
-
-router.route('/apartments')
-    .get(apartmentsCtrl.hola);
-
-router.route('/reservations')
-    .get(reservationsCtrl.hola);
-
-
-app.use(router);
+app.use('/users',usersUrl);
+app.use('/reservations',reservationsUrl);
+app.use('/apartments',apartmentsUrl);
 
 
 var server = app.listen(8000, function () {

@@ -1,0 +1,24 @@
+{
+  "name": "airbnd_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleduarte06/airbnd_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleduarte06/airbnd_api/issues"
+  },
+  "homepage": "https://github.com/aleduarte06/airbnd_api#readme",
+  "dependencies": {
+    "body-parser": "^1.14.0",
+    "cors": "^2.7.1",
+    "express": "^4.13.3"
+  }
+}

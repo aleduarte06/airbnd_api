@@ -21,6 +21,7 @@
     "body-parser": "^1.14.0",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "mongoose": "^4.1.8"
+    "mongoose": "^4.1.8",
+    "mongoose-geojson-schema": "0.0.2"
   }
 }

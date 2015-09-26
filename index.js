@@ -7,33 +7,32 @@ var express = require('express'),
     mongoose = require('mongoose'),
     app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-var usersUrl = require('./routes/users');
-var reservationsUrl = require('./routes/reservations');
-var apartmentsUrl = require('./routes/apartments');
-
-app.use('/users',usersUrl);
-app.use('/reservations',reservationsUrl);
-app.use('/apartments',apartmentsUrl);
-
-var urlMongo = "mongodb://aleduarte:aleduarte@ds047591.mongolab.com:47591/cursomongo";
+/* Database */
+var urlMongo = "mongodb://aleduarte:aleduarte@ds059692.mongolab.com:59692/airbnd";
 
 mongoose.connect(urlMongo, function (err) {
     if(err){
         console.error('mongoose connection error');
     }else{
-        console.log('alta conexión')
+        console.log('Conectado con Mongo');
+        onConnect()
     }
 });
+var models = require('./models')(app, mongoose);
 
-var models = require('./models/uses')(app, mongoose);
 
-var server = app.listen(8000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
+/* Routes */
+var routes = require('./routes')(app);
 
-    console.log('Example app listening at http://%s:%s', host, port);
-});
+function onConnect() {
+    var server = app.listen(8000, function () {
+        var host = server.address().address;
+        var port = server.address().port;
+
+        console.log('Example app listening at http://%s:%s', host, port);
+    });
+}

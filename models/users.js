@@ -4,13 +4,13 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
-var usersSchema = new Schema({
-    name:String,
-    lastName:String,
-    age:Number,
-    email:String,
-    password:String,
-    token:String
+var userSchema = new Schema({
+    email: { type: String, index: true, unique: true},
+    password: String,
+    fullname: String,
+    active: Boolean,
+    reservations: [Schema.Types.ObjectId],
+    apartments:[Schema.Types.ObjectId]
 });
 
-module.exports = mongoose.model('users', usersSchema);
+module.exports = mongoose.model('User', userSchema);

@@ -3,11 +3,18 @@
  */
 "use strict";
 
-var mongoose = require('mongoose');
-var modelUser  = mongoose.model('User');
+var mongoose = require('mongoose'),
+    modelUser  = mongoose.model('User');
 
 exports.getMe = function(req, res){
-    res.status(200).send('me')
+    modelUser.findOne({"_id": req.user})
+        .then(function(user){
+            res.status(200).json(user)
+        })
+        .catch(function(err){
+            res.status(500).json({message: err})
+        });
+
 };
 
 exports.getAll = function(req, res){

@@ -1,6 +1,5 @@
-/**
- * Created by aleduarte06 on 24/9/15.
- */
+"use strict";
+
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
@@ -12,5 +11,9 @@ var userSchema = new Schema({
     reservations: [Schema.Types.ObjectId],
     apartments:[Schema.Types.ObjectId]
 });
+
+userSchema.methods.verifyPassword = function(password){
+    return this.password == password;
+};
 
 module.exports = mongoose.model('User', userSchema);

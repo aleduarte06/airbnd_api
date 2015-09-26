@@ -5,16 +5,15 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
     mongoose = require('mongoose'),
-    app = express();
+    app = express(),
+    config = require('./config');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 /* Database */
-var urlMongo = "mongodb://aleduarte:aleduarte@ds059692.mongolab.com:59692/airbnd";
-
-mongoose.connect(urlMongo, function (err) {
+mongoose.connect(config.mongo_url, function (err) {
     if(err){
         console.error('mongoose connection error');
     }else{
@@ -22,11 +21,14 @@ mongoose.connect(urlMongo, function (err) {
         onConnect()
     }
 });
-var models = require('./models')(app, mongoose);
+/* Models */
+require('./models')(app, mongoose);
 
+/* Auth */
+require('./strategies')(app);
 
 /* Routes */
-var routes = require('./routes')(app);
+require('./routes')(app);
 
 function onConnect() {
     var server = app.listen(8000, function () {

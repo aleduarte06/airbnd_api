@@ -12,7 +12,7 @@ exports.getAll = function(req, res){
             res.status(200).json(reservations);
         })
         .catch(function(err) {
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };
 
@@ -22,10 +22,10 @@ exports.getOne = function(req, res) {
             if(reservation)
                 res.status(200).json(reservation);
             else
-                res.status(400).json({message: 'Reservation does not exist'});
+                res.status(404).json({message: 'Reservation does not exist'});
         })
         .catch(function(err) {
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };
 
@@ -33,7 +33,7 @@ exports.create = function(req, res){
     modelReservation.create(req.body).then(function(reservation){
         res.status(201).json({message: 'New reservation', data: reservation});
     },function(err){
-        res.status(500).send(err.message);
+        res.status(500).json({message: err.message});
     })
 };
 
@@ -43,7 +43,7 @@ exports.update = function(req, res){
             res.status(200).json({message: 'Reservation has been updated'});
         })
         .catch(function(err){
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };
 
@@ -53,6 +53,6 @@ exports.delete = function(req, res) {
             res.status(200).json({message: 'User deleted', data: reservation});
         })
         .catch(function(err){
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };

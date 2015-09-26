@@ -16,7 +16,7 @@ exports.getAll = function(req, res){
             res.status(200).json(users);
         })
         .catch(function(err) {
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         });
 };
 
@@ -29,7 +29,7 @@ exports.getUser = function(req, res) {
                 res.status(404).json({message: 'User does not exist'})
         })
         .catch(function(err){
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };
 
@@ -39,7 +39,7 @@ exports.create = function(req, res){
             res.status(201).json({message: 'User created', data: user});
         },
         function(err){
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         });
 };
 
@@ -49,7 +49,7 @@ exports.update = function(req, res) {
             res.status(200).json({message: 'User updated'});
         })
         .catch(function(err){
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };
 
@@ -59,6 +59,6 @@ exports.delete = function(req, res) {
             res.status(200).json({message: 'User deleted', data: user})
         })
         .catch(function(err){
-            res.status(500).send(err.message);
+            res.status(500).json({message: err.message});
         })
 };

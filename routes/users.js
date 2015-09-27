@@ -1,6 +1,5 @@
-/**
- * Created by aleduarte06 on 24/9/15.
- */
+"use strict";
+
 var usersCtrl = require('../controllers/users');
 var router = require('express').Router();
 

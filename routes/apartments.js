@@ -1,6 +1,5 @@
-/**
- * Created by aleduarte06 on 24/9/15.
- */
+"use strict";
+
 var apartmentsCtrl = require('../controllers/apartments');
 var router = require('express').Router();
 

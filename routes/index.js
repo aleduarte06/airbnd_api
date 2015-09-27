@@ -1,3 +1,5 @@
+"use strict";
+
 var usersUrl = require('./users');
 var reservationsUrl = require('./reservations');
 var apartmentsUrl = require('./apartments');

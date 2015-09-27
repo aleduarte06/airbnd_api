@@ -1,6 +1,5 @@
-/**
- * Created by aleduarte06 on 24/9/15.
- */
+"use strict";
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     cors = require('cors'),

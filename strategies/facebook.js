@@ -7,23 +7,33 @@ var passport = require('passport'),
 passport.use(new facebookStrategy({
     clientID: '1072842999394931',
     clientSecret: 'da08a8bb164d90272a8f8316ddb1f076',
-    callbackURL: "http://127.0.0.1:8000/auth/facebook/callback",
-    scope:['email'],
+    callbackURL: "http://fuf.me:8000/auth/facebook/callback",
     profileFields: ['email','displayName'],
     session:false
 }, function(accessToken, refreshToken, profile, done){
-    var query = {
-        email: profile.emails[0].value
-    };
-    userModel.findOne(query)
+    userModel.findOne({'social.facebook.id': profile.id})
         .then(function(user){
-            if(user){
-                done(null,user);
-            }else{
-                done({error:'not found'});
+            if(user) done(null,user);
+            else {
+                userModel.create({
+                    email: profile.emails[0].value,
+                    fullname: profile.displayName,
+                    active: true,
+                    social:{
+                        facebook:{
+                            id: profile.id,
+                            token: accessToken
+                        }
+                    }
+                })
+                    .then(function(user){
+                        done(null, user);
+                    }, function(err){
+                        done(err.message);
+                    });
             }
         })
         .catch(function(err){
-            done({error: err.message})
+            done(err.message)
         })
 }));

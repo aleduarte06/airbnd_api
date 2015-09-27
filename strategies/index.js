@@ -2,8 +2,7 @@
 
 var passport = require('passport'),
     config = require('../config'),
-    jwt = require('jwt-simple'),
-    userModel = require('mongoose').model('User');
+    jwt = require('jwt-simple');
 
 require('./facebook');
 require('./basic');
@@ -20,7 +19,7 @@ passport.deserializeUser(function(id, done) {
 /* Facebook Auth */
 var facebookCallback = function(req, res) {
     var tokenPayload = {
-        id: req.user._id
+        sub: req.user._id
     };
 
     res.status(200).json({
@@ -35,7 +34,9 @@ var basicAuth = function(req, res){
         sub: req.user._id
     };
 
-    res.json(jwt.encode(tokenPayload, config.secretToken))
+    res.status(200).json({
+        token: jwt.encode(tokenPayload, config.secretToken)
+    })
 };
 
 module.exports = function(app) {

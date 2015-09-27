@@ -28,7 +28,7 @@ exports.getAll = function(req, res){
 };
 
 exports.getUser = function(req, res) {
-    modelUser.findOne({"_id": req.params.id})
+    modelUser.findOne({"_id": req.params.id}).select('fullname email reservations apartments')
         .then(function(user) {
             if (user)
                 res.status(200).json(user);

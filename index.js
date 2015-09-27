@@ -21,6 +21,7 @@ mongoose.connect(config.mongo_url, function (err) {
         onConnect()
     }
 });
+
 /* Models */
 require('./models')(app, mongoose);
 
@@ -29,6 +30,9 @@ require('./strategies')(app);
 
 /* Routes */
 require('./routes')(app);
+
+/* Welcome Message*/
+app.get('/', function(req, res){ res.json("Airbnd API")});
 
 function onConnect() {
     var server = app.listen(8000, function () {

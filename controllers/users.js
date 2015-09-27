@@ -18,7 +18,7 @@ exports.getMe = function(req, res){
 };
 
 exports.getAll = function(req, res){
-    modelUser.find()
+    modelUser.find().select('fullname email reservations apartments')
         .then(function(users) {
             res.status(200).json(users);
         })

@@ -9,11 +9,13 @@ passport.use(new BasicStrategy(
         userModel.findOne({email: username})
             .then(function(user){
                 if(!user) return done(null, false);
-                if(!user.verifyPassword(password)) return done(null, false);
-                return done(null, user)
+                user.verifyPassword(password, function(isMatch){
+                    if(isMatch) return done(null, user);
+                    done(null, false)
+                });
             })
             .catch(function(err){
-                return done(err)
+                done(err)
             })
     }
 ));

@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var reservationSchema = new Schema({
-    userId: Schema.Types.ObjectId,
-    apartmentId: Schema.Types.ObjectId,
+    userID: Schema.Types.ObjectId,
+    apartmentID: Schema.Types.ObjectId,
     startDate: Date,
     endDate: Date
 });

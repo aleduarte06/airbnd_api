@@ -8,7 +8,7 @@ var apartmentSchema = new Schema({
     owner: Schema.Types.ObjectId,
     title: String,
     description: String,
-    adreess: {
+    address: {
         fullAdress: String,
         cord: GeoJSON.Feature
     },

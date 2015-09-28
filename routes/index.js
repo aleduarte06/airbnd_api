@@ -7,8 +7,8 @@ var passport = require('passport');
 
 function Routes (app) {
     app.use('/users',passport.authenticate('jwt', {session: false}), usersUrl);
-    app.use('/reservations',reservationsUrl);
-    app.use('/apartments',apartmentsUrl);
+    app.use('/reservations',passport.authenticate('jwt', {session: false}), reservationsUrl);
+    app.use('/apartments',passport.authenticate('jwt', {session: false}), apartmentsUrl);
 }
 
 module.exports = Routes;

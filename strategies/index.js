@@ -16,8 +16,7 @@ passport.deserializeUser(function(id, done) {
     done(null, id);
 });
 
-/* Facebook Auth */
-var facebookCallback = function(req, res) {
+var authCallback = function(req, res) {
     var tokenPayload = {
         sub: req.user._id
     };
@@ -27,21 +26,9 @@ var facebookCallback = function(req, res) {
     })
 };
 
-
-/* Basic Auth*/
-var basicAuth = function(req, res){
-    var tokenPayload = {
-        sub: req.user._id
-    };
-
-    res.status(200).json({
-        token: jwt.encode(tokenPayload, config.secretToken)
-    })
-};
-
 module.exports = function(app) {
     app.use(passport.initialize());
-    app.get('/login', passport.authenticate('basic'), basicAuth);
+    app.get('/login', passport.authenticate('basic'), authCallback);
     app.get('/auth/facebook', passport.authenticate('facebook'));
-    app.get('/auth/facebook/callback', passport.authenticate('facebook'), facebookCallback);
+    app.get('/auth/facebook/callback', passport.authenticate('facebook'), authCallback);
 };

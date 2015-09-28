@@ -6,15 +6,10 @@
 var mongoose = require('mongoose'),
     modelUser  = mongoose.model('User');
 
-exports.getMe = function(req, res){
-    modelUser.findOne({"_id": req.user})
-        .then(function(user){
-            res.status(200).json(user)
-        })
-        .catch(function(err){
-            res.status(500).json({message: err})
-        });
+var messageNotExist = 'User does not exist';
 
+exports.getMe = function(req, res){
+    res.status(200).json(req.user)
 };
 
 exports.getAll = function(req, res){
@@ -53,7 +48,10 @@ exports.create = function(req, res){
 exports.update = function(req, res) {
     modelUser.findOneAndUpdate({"_id": req.params.id}, req.body)
         .then(function(user) {
-            res.status(200).json({message: 'User updated'});
+            if (user)
+                res.status(200).json({message: 'User updated'});
+            else
+                res.status(404).json({message: messageNotExist})
         })
         .catch(function(err){
             res.status(500).json({message: err.message});
@@ -63,9 +61,12 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
     modelUser.findOneAndRemove({"_id": req.params.id})
         .then(function(user){
-            res.status(200).json({message: 'User deleted', data: user})
+            if (user)
+                res.status(200).json({message: 'User deleted', data: user});
+            else
+                res.status(404).json({message: messageNotExist})
         })
         .catch(function(err){
-            res.status(500).json({message: err.message});
+            res.status(500).json({message: err.message})
         })
 };

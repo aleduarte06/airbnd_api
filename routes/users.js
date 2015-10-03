@@ -4,8 +4,7 @@ var usersCtrl = require('../controllers/users');
 var router = require('express').Router();
 
 router.route('/')
-    .get(usersCtrl.getAll)
-    .post(usersCtrl.create);
+    .get(usersCtrl.getAll);
 
 router.get('/me$', usersCtrl.getMe);
 

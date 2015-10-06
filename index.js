@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use(multer({ dest: './uploads/'}));
+//app.use(multer({ dest: './uploads/'}));
 
 /* Database */
 mongoose.connect(config.mongo_url, function (err) {
